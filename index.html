@@ -23,12 +23,13 @@
         const grego = { 'α':1, 'β':2, 'γ':3, 'δ':4, 'ε':5, 'ζ':7, 'η':8, 'θ':9, 'ι':10, 'κ':20, 'λ':30, 'μ':40, 'ν':50, 'ξ':60, 'ο':70, 'π':80, 'ρ':100, 'σ':200, 'τ':300, 'υ':400, 'φ':500, 'χ':600, 'ψ':700, 'ω':800 };
         const newAeon = { 'a':1, 'l':2, 'w':3, 'h':4, 's':5, 'd':6, 'o':7, 'z':8, 'k':9, 'v':10, 'g':11, 'r':12, 'c':13, 'n':14, 'y':15, 'j':16, 'u':17, 'f':18, 'q':19, 'b':20, 'm':21, 'x':22, 'i':23, 't':24, 'e':25, 'p':26 };
         const ordinal = { 'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':6, 'g':7, 'h':8, 'i':9, 'j':10, 'k':11, 'l':12, 'm':13, 'n':14, 'o':15, 'p':16, 'q':17, 'r':18, 's':19, 't':20, 'u':21, 'v':22, 'w':23, 'x':24, 'y':25, 'z':26 };
+        
         function calcularGematria() {
-            let entrada = document.getElementById("entrada").value.toUpperCase();
+            let entrada = document.getElementById("entrada").value;
             let hebraicoValor = calcularValor(entrada, hebraico);
             let gregoValor = calcularValor(entrada, grego);
-            let newAeonValor = calcularValor(entrada, newAeon);
-            let ordinalValor = calcularValor(entrada, ordinal);
+            let newAeonValor = calcularValor(entrada.toLowerCase(), newAeon);
+            let ordinalValor = calcularValor(entrada.toLowerCase(), ordinal);
             
             document.getElementById("resultados").innerHTML = `
                 <p><strong>Gematria Hebraica:</strong> ${hebraicoValor}</p>
