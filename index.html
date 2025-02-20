@@ -4,9 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Gematria</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        input { padding: 10px; margin: 10px; width: 300px; }
+        button { padding: 10px; }
+        .resultado { margin-top: 20px; font-size: 18px; }
+    </style>
 </head>
 <body>
-    <h1>Bem-vindo à Calculadora de Gematria</h1>
-    <p>Em breve, adicionaremos diferentes sistemas de cálculo!</p>
+    <h1>Calculadora de Gematria</h1>
+    <p>Digite uma palavra ou frase:</p>
+    <input type="text" id="entrada" placeholder="Digite aqui">
+    <button onclick="calcularGematria()">Calcular</button>
+    <div class="resultado" id="resultados"></div>
+
+    <script>
+        const hebraico = { 'א':1, 'ב':2, 'ג':3, 'ד':4, 'ה':5, 'ו':6, 'ז':7, 'ח':8, 'ט':9, 'י':10, 'כ':20, 'ל':30, 'מ':40, 'נ':50, 'ס':60, 'ע':70, 'פ':80, 'צ':90, 'ק':100, 'ר':200, 'ש':300, 'ת':400 };
+        const grego = { 'α':1, 'β':2, 'γ':3, 'δ':4, 'ε':5, 'ζ':7, 'η':8, 'θ':9, 'ι':10, 'κ':20, 'λ':30, 'μ':40, 'ν':50, 'ξ':60, 'ο':70, 'π':80, 'ρ':100, 'σ':200, 'τ':300, 'υ':400, 'φ':500, 'χ':600, 'ψ':700, 'ω':800 };
+        const newAeon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').reduce((acc, letter, i) => { acc[letter] = (i + 1) % 26; return acc; }, {});
+        const ordinal = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').reduce((acc, letter, i) => { acc[letter] = i + 1; return acc; }, {});
+
+        function calcularGematria() {
+            let entrada = document.getElementById("entrada").value.toUpperCase();
+            let hebraicoValor = calcularValor(entrada, hebraico);
+            let gregoValor = calcularValor(entrada, grego);
+            let newAeonValor = calcularValor(entrada, newAeon);
+            let ordinalValor = calcularValor(entrada, ordinal);
+            
+            document.getElementById("resultados").innerHTML = `
+                <p><strong>Gematria Hebraica:</strong> ${hebraicoValor}</p>
+                <p><strong>Isopsefia Grega:</strong> ${gregoValor}</p>
+                <p><strong>New Aeon English Qabalah:</strong> ${newAeonValor}</p>
+                <p><strong>Gematria Ordinal:</strong> ${ordinalValor}</p>
+            `;
+        }
+
+        function calcularValor(texto, tabela) {
+            return texto.split('').reduce((soma, letra) => soma + (tabela[letra] || 0), 0);
+        }
+    </script>
 </body>
 </html>
