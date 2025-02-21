@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>*✩‧₊ʚ˚GEMATRIA˚ɞ₊‧✩*</title>
+    <title>Calculadora de Gematria</title>
     <style>
         body { font-family: Helvetica, sans-serif; text-align: center; margin: 20px; }
         h1 { font-family: "Times New Roman", serif; }
@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <h1>*✩‧₊ʚ˚GEMATRIA˚ɞ₊‧✩*</h1>
+    <h1>GEMATRIA</h1>
     <p>Digite uma palavra ou frase:</p>
     <input type="text" id="entrada" placeholder="Digite aqui">
     <button onclick="calcularGematria()">Calcular</button>
@@ -25,15 +25,19 @@
         const newAeon = { 'a':1, 'l':2, 'w':3, 'h':4, 's':5, 'd':6, 'o':7, 'z':8, 'k':9, 'v':10, 'g':11, 'r':12, 'c':13, 'n':14, 'y':15, 'j':16, 'u':17, 'f':18, 'q':19, 'b':20, 'm':21, 'x':22, 'i':23, 't':24, 'e':25, 'p':26 };
         const ordinal = { 'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':6, 'g':7, 'h':8, 'i':9, 'j':10, 'k':11, 'l':12, 'm':13, 'n':14, 'o':15, 'p':16, 'q':17, 'r':18, 's':19, 't':20, 'u':21, 'v':22, 'w':23, 'x':24, 'y':25, 'z':26 };
         
+        function normalizarTexto(texto) {
+            return texto.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ç/g, "c").replace(/ñ/g, "n").toLowerCase();
+        }
+
         function calcularGematria() {
             let entrada = document.getElementById("entrada").value;
-            let entradaMinuscula = entrada.toLowerCase();
-            let entradaGrega = entrada.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+            let entradaNormalizada = normalizarTexto(entrada);
+            let entradaGrega = normalizarTexto(entrada).toLowerCase();
             
             let hebraicoValor = calcularValor(entrada, hebraico);
             let gregoValor = calcularValor(entradaGrega, grego);
-            let newAeonValor = calcularValor(entradaMinuscula, newAeon);
-            let ordinalValor = calcularValor(entradaMinuscula, ordinal);
+            let newAeonValor = calcularValor(entradaNormalizada, newAeon);
+            let ordinalValor = calcularValor(entradaNormalizada, ordinal);
             
             document.getElementById("resultados").innerHTML = `
                 <p><strong>Gematria Hebraica:</strong> ${hebraicoValor}</p>
